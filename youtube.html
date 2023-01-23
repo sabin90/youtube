@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Video Downloader</title>
+  <style>
+    /* CSS code here */
+  </style>
+</head>
+<body>
+  <form>
+    <label for="youtube-link">Enter YouTube Video Link:</label>
+    <input type="text" id="youtube-link" name="youtube-link">
+    <input type="button" value="Submit" onclick="downloadVideo()">
+  </form>
+
+  <script>
+  function downloadVideo() {
+  var link = document.getElementById("youtube-link").value;
+  // Check if the link is a valid YouTube link
+  if (!link.match(/^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9-_]+$/)) {
+    alert("Invalid YouTube link. Please enter a valid link.");
+    return;
+  }
+
+  // Get the video ID from the link
+  var videoId = link.split("=")[1];
+
+  // Create a hidden link element to trigger the download
+  var downloadLink = document.createElement("a");
+  downloadLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+  downloadLink.download = videoId + ".mp4";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
+
+  </script>
+</body>
+</html>
